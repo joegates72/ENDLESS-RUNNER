@@ -13,9 +13,17 @@ public class PlayerController : MonoBehaviour
     //Create a reference to the Rigidbody2D so we can manipulate it
     Rigidbody2D playerObject;
 
+
+
+    Animator anim;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         //Find the Rigidbody2D component that is attached to the same object as this script
         playerObject = GetComponent<Rigidbody2D>();
     }
@@ -23,7 +31,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+       
+            if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = 10.0f;
         }
@@ -38,6 +47,9 @@ public class PlayerController : MonoBehaviour
         //Set movementValue to 1.0f, so that we always run foward and no longer care about player input
         float movementValueX = 1.0f;
 
+ anim.SetFloat("Speed", Mathf.Abs(movementValueX));
+        anim.SetBool("IsOnGround", isOnGround);
+       
         //Change the velocity of the Rigidbody2D to be equal to the movement value
         playerObject.velocity = new Vector2 (movementValueX * maxSpeed, playerObject.velocity.y);
 
@@ -46,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround == true)
         {
-            playerObject.AddForce(new Vector2(0.0f, 375.0f));
+            playerObject.AddForce(new Vector2(0.0f, 388.0f));
         }
     }
 }
