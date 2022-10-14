@@ -17,7 +17,7 @@ public class Destroyer : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
-            SceneManager.LoadScene(1); 
+            SceneManager.LoadScene(0); 
         }
 
         if(collision.gameObject.tag == "PickUp")
