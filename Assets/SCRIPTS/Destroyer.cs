@@ -19,5 +19,10 @@ public class Destroyer : MonoBehaviour
 
             SceneManager.LoadScene(1); 
         }
+
+        if(collision.gameObject.tag == "PickUp")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

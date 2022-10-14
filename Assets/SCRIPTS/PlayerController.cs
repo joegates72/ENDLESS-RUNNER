@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     //Create a reference to the Rigidbody2D so we can manipulate it
     Rigidbody2D playerObject;
+
+    public Text scoreText;
+    int score = 0;
 
 
 
@@ -31,8 +35,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        scoreText.text = "Score: " + score.ToString();
        
-            if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = 10.0f;
         }
@@ -47,7 +52,7 @@ public class PlayerController : MonoBehaviour
         //Set movementValue to 1.0f, so that we always run foward and no longer care about player input
         float movementValueX = 1.0f;
 
- anim.SetFloat("Speed", Mathf.Abs(movementValueX));
+        anim.SetFloat("Speed", Mathf.Abs(movementValueX));
         anim.SetBool("IsOnGround", isOnGround);
        
         //Change the velocity of the Rigidbody2D to be equal to the movement value
@@ -59,6 +64,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround == true)
         {
             playerObject.AddForce(new Vector2(0.0f, 388.0f));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if (other.tag == "PickUp")
+        {
+            score += 10;
+            Destroy(other.gameObject);
         }
     }
 }
